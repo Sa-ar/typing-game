@@ -6,7 +6,7 @@ import { getWordsAroundTheCurrent } from "../../utils/wordsMap";
 
 import "./WordsTeleprompter.css";
 
-interface WordsTeleprompterProps {
+type WordsTeleprompterProps = {
   words: Array<WordType>;
 }
 
