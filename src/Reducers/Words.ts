@@ -1,6 +1,6 @@
 import cloneDeep from "lodash/cloneDeep";
 
-import { WordProps } from "../Components/Word/Word";
+import { WordType } from "../Components/Word/Word";
 import { getRandomWords } from "../utils/random";
 
 import { createWordsArray, getCurrentWordIndex, updateWord } from "../utils/wordsMap";
@@ -11,7 +11,7 @@ type actionType = {
   history?: string;
 }
 
-export default function reducer(state:Array<WordProps>, action: actionType) {
+export default function reducer(state:Array<WordType>, action: actionType) {
   const newState = cloneDeep(state);
 
   switch(action.type) {
@@ -26,7 +26,7 @@ export default function reducer(state:Array<WordProps>, action: actionType) {
       if (action.payload) {
         nextIndex = currentIndex + 1;
 
-        if (nextIndex === newState.length - 7) {
+        if (nextIndex === newState.length - 13) {
           newState.push(...createWordsArray(getRandomWords(), null))
         }
       } else if (currentIndex > 0) {

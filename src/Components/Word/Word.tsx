@@ -2,7 +2,10 @@ import React from "react";
 
 import "./Word.css";
 
-export interface WordProps {
+
+export type WordType = WordProps & { id: string };
+
+type WordProps = {
   children: string;
   active: boolean;
   state: boolean | null;
