@@ -3,13 +3,14 @@ import { useTimer } from "use-timer";
 
 import WordsTeleprompter from "./WordsTeleprompter/WordsTeleprompter";
 import CurrentWordInput from "./CurrentWordInput/CurrentWordInput";
+import Timer from "./Timer/Timer";
+import Statistics from "./Statistics/Statistics";
 
 import { getRandomWords } from "../utils/random";
 import { createWordsArray } from "../utils/wordsMap";
 import reducer from "../Reducers/Words";
 
 import "./App.css";
-import Timer from "./Timer/Timer";
 
 function App() {
   const [gameStatus, setGameStatus] = useState("STOPPED");
@@ -17,7 +18,7 @@ function App() {
     initialTime: 60,
     endTime: 0,
     timerType: "DECREMENTAL",
-    onTimeOver: () => setGameStatus("GAME_OVER")
+    onTimeOver: () => setGameStatus("GAME_OVER"),
   });
   const [words, dispatch] = useReducer(
     reducer,
@@ -27,19 +28,25 @@ function App() {
   function onReset() {
     resetTimer();
     setGameStatus("STOPPED");
-    dispatch({ type: "RESET_WORDS", payload: true })
+    dispatch({ type: "RESET_WORDS", payload: true });
   }
 
   return (
     <div className="App">
       <Timer onReset={onReset} time={time} />
-      <WordsTeleprompter words={words} />
-      <CurrentWordInput
-        words={words}
-        dispatch={dispatch}
-        onFirstKeyDown={startTimer}
-        status={gameStatus}
-      />
+      {gameStatus === "GAME_OVER" ? (
+        <Statistics words={words} />
+      ) : (
+        <>
+          <WordsTeleprompter words={words} />
+          <CurrentWordInput
+            words={words}
+            dispatch={dispatch}
+            onFirstKeyDown={startTimer}
+            status={gameStatus}
+          />
+        </>
+      )}
     </div>
   );
 }

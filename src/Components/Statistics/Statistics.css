@@ -1,0 +1,31 @@
+.statistics-panel {
+  background-color: azure;
+  border: 1px aliceblue solid;
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 30rem;
+}
+
+.statistics-panel h2 {
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+
+.statistics-panel h3 {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.statistics-panel dt {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.statistics-panel dd {
+  color: darkslategrey;
+  margin: 1rem;
+}
+
+.bad-words-list {
+  text-align: left;
+}
