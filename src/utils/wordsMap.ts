@@ -26,7 +26,6 @@ export function getWordsAroundTheCurrent(words: Array<WordType>, lines = 3, word
   const currentLineNumber = Math.round((currentIndex - placeInRow) / wordsInLine) + 1;
   const halfRows = Math.round((lines - 1) / 2);
 
-  debugger
   if (currentLineNumber <= 1)
     return words.slice(0, lines * wordsInLine);
 

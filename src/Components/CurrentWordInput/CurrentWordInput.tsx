@@ -4,8 +4,19 @@ import { WordType } from "../Word/Word";
 
 import { getCurrentWordIndex } from "../../utils/wordsMap";
 
-function CurrentWordInput({ words, dispatch }: { words: Array<WordType>, dispatch: Function }) {
+type CurrentWordInputProps = {
+  words: Array<WordType>;
+  dispatch: Function;
+  onFirstKeyDown: Function;
+  status: string;
+}
+
+function CurrentWordInput({ words, dispatch, onFirstKeyDown, status }: CurrentWordInputProps) {
   function handleOnKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (status === "GAME_OVER") return;
+    if (!e.repeat && status === "STOPPED") {
+      onFirstKeyDown();
+    } 
     if (e.key === " ") {
       const value = e.currentTarget.value.slice(0, -1);
       const currentWord = words[getCurrentWordIndex(words)];
@@ -29,7 +40,7 @@ function CurrentWordInput({ words, dispatch }: { words: Array<WordType>, dispatc
     }
   }
 
-  return <input onKeyUp={handleOnKeyUp} />;
+  return <input onKeyUp={handleOnKeyUp} readOnly={status === "GAME_OVER"} />;
 }
 
 export default CurrentWordInput;

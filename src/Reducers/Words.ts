@@ -12,13 +12,15 @@ type actionType = {
 }
 
 export default function reducer(state:Array<WordType>, action: actionType) {
-  const newState = cloneDeep(state);
+  let newState: Array<WordType> = [];
 
   switch(action.type) {
     case 'CHANGE_WORD_STATE':
+      newState = cloneDeep(state);
       newState[getCurrentWordIndex(newState)].state = action.payload;
       break;
     case 'CHANGE_CURRENT_WORD':
+      newState = cloneDeep(state);
       const currentIndex = getCurrentWordIndex(newState);
       updateWord(newState, currentIndex, { active: false, history: action.history || "" });
 
@@ -33,6 +35,9 @@ export default function reducer(state:Array<WordType>, action: actionType) {
         nextIndex = currentIndex - 1;
       }
       updateWord(newState, nextIndex, { active: true });
+      break;
+    case 'RESET_WORDS':
+      newState = createWordsArray(getRandomWords(18));
       break;
   }
 
